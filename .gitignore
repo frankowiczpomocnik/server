@@ -1,0 +1,28 @@
+# Игнорируем зависимости
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Игнорируем окружение
+.env
+.env.local
+.env.development
+.env.production
+
+# Игнорируем файлы логов
+logs
+*.log
+logs/
+debug.log
+error.log
+
+# Игнорируем загруженные файлы (если используешь локальное хранилище)
+uploads/
+public/uploads/
+
+# Игнорируем файлы IDE и системные файлы
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

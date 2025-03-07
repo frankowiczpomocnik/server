@@ -55,7 +55,7 @@ const sanity = createClient({
   projectId: process.env.SANITY_PROJECT_ID,
   dataset: process.env.SANITY_DATASET,
   useCdn: process.env.NODE_ENV === 'production',
-  apiVersion: "2023-01-01",
+  apiVersion: "2025-03-07",
   token: process.env.SANITY_TOKEN,
 });
 

@@ -39,7 +39,7 @@ app.use(session({
 const apiLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
-  message: { error: 'Too many requests, please try again later.' }
+  message: { error: 'Zbyt wiele prób. Spróbuj ponownie później.' }
 });
 app.use('/api/', apiLimiter);
 
@@ -47,7 +47,7 @@ app.use('/api/', apiLimiter);
 const otpLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
   max: 5, // limit each IP to 5 OTP requests per hour
-  message: { error: 'Too many OTP requests, please try again later.' }
+  message: { error: 'Zbyt wiele prób. Spróbuj ponownie później.' }
 });
 
 // Sanity client
@@ -76,7 +76,7 @@ const upload = multer({
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
     } else {
-      cb(new Error('Invalid file type. Only JPEG, PNG, PDF and DOC files are allowed.'));
+      cb(new Error('Nieprawidłowy typ pliku. Dozwolone są tylko pliki JPEG, PNG, PDF i DOC.'));
     }
   }
 });
@@ -90,13 +90,13 @@ const validatePhone = (phone) => {
 const validateRequest = (req, res, requiredFields) => {
   for (const field of requiredFields) {
     if (!req.body[field]) {
-      res.status(400).json({ error: `${field} is required` });
+      res.status(400).json({ error: `${field} jest wymagane` });
       return false;
     }
   }
   
   if (req.body.phone && !validatePhone(req.body.phone)) {
-    res.status(400).json({ error: "Invalid phone number format" });
+    res.status(400).json({ error: "Nieprawidłowy format numeru telefonu" });
     return false;
   }
   
@@ -110,7 +110,7 @@ const errorHandler = (err, req, res, next) => {
   // Multer errors
   if (err instanceof multer.MulterError) {
     if (err.code === 'LIMIT_FILE_SIZE') {
-      return res.status(400).json({ error: 'File too large. Maximum size is 5MB.' });
+      return res.status(400).json({ error: 'Plik jest za duży. Maksymalny rozmiar to 5MB.' });
     }
     return res.status(400).json({ error: `Upload error: ${err.message}` });
   }

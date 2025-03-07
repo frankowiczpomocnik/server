@@ -142,7 +142,7 @@ app.post("/api/clients", upload.array("files", 10), async (req, res, next) => {
 
     // Create document in Sanity
     const doc = {
-      _type: "client",
+      _type: "files",
       name: req.body.name,         
       phone: req.body.phone,
       files: uploadedFiles,

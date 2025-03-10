@@ -30,7 +30,7 @@ app.use(session({
   resave: false, 
   saveUninitialized: true,
   cookie: { 
-    secure: false, // Только в продакшене
+    secure: process.env.NODE_ENV === 'production', // Только в продакшене
     httpOnly: true,
      sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax'
   }

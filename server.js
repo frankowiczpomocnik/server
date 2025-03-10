@@ -20,7 +20,7 @@ const OTP_EXPIRY = 10 * 60 * 1000; // 10 minutes in milliseconds
 app.use(helmet()); // Security headers
 app.use(express.json());
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: "https://pomoc-zadluzonym.netlify.app",
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true

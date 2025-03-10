@@ -256,11 +256,7 @@ app.post("/api/validate-otp", async (req, res, next) => {
       return res.status(400).json({ error: "Kod weryfikacyjny nie znaleziony lub wygasł" });
     }
 
-    // Check if OTP is expired
-    if (new Date(otpRecord.expiresAt) < new Date()) {
-      await sanity.delete(otpRecord._id);
-      return res.status(400).json({ error: "Kod weryfikacyjny wygasł" });
-    }
+ 
 
     // Check OTP
     if (otpRecord.otp !== req.body.otp) {

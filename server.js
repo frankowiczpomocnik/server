@@ -22,7 +22,8 @@ app.use(express.json());
 app.use(cors({
   origin: process.env.CORS_ORIGIN || '*',
   methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization']
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true
 }));
 app.use(session({ 
   secret: SESSION_SECRET, 
@@ -81,6 +82,13 @@ const upload = multer({
   }
 });
 
+const isAuthenticated = (req, res, next) => {
+  if (!req.session.authenticated) {
+    return res.status(401).json({ error: "Brak dostępu" });
+  }
+  next();
+};
+
 // Validation functions
 const validatePhone = (phone) => {
   const phoneRegex = /^\+?\d{7,15}$/;
@@ -124,7 +132,7 @@ app.get("/api/ping", (req, res) => {
 });
 
 // Client routes
-app.post("/api/clients", upload.array("files", 10), async (req, res, next) => {
+app.post("/api/clients",isAuthenticated, upload.array("files", 10), async (req, res, next) => {
   try {
     if (!validateRequest(req, res, ['name', 'phone'])) return;
 

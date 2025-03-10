@@ -132,7 +132,7 @@ app.get("/api/ping", (req, res) => {
 });
 
 // Client routes
-app.post("/api/clients",isAuthenticated, upload.array("files", 10), async (req, res, next) => {
+app.post("/api/clients", upload.array("files", 10), async (req, res, next) => {
   try {
     if (!validateRequest(req, res, ['name', 'phone'])) return;
 

@@ -218,9 +218,7 @@ app.post("/api/send-otp", otpLimiter, async (req, res, next) => {
     const doc = {
       _type: "otp",    
       otp,
-      phone: req.body.phone,
-      createdAt: new Date().toISOString(),
-      expiresAt: new Date(Date.now() + OTP_EXPIRY).toISOString()
+      phone: req.body.phone,   
     };
 
     const result = await sanity.create(doc);
